@@ -10,10 +10,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.julianoblank.sistemapedido.domain.Categoria;
 import com.julianoblank.sistemapedido.domain.Cidade;
+import com.julianoblank.sistemapedido.domain.Cliente;
+import com.julianoblank.sistemapedido.domain.Endereco;
 import com.julianoblank.sistemapedido.domain.Estado;
 import com.julianoblank.sistemapedido.domain.Produto;
+import com.julianoblank.sistemapedido.domain.enums.TipoCliente;
 import com.julianoblank.sistemapedido.repositories.CategoriaRepository;
 import com.julianoblank.sistemapedido.repositories.CidadeRepository;
+import com.julianoblank.sistemapedido.repositories.ClienteRepository;
+import com.julianoblank.sistemapedido.repositories.EnderecoRepository;
 import com.julianoblank.sistemapedido.repositories.EstadoRepository;
 import com.julianoblank.sistemapedido.repositories.ProdutoRepository;
 
@@ -31,6 +36,12 @@ public class SistemaPedidoApplication implements CommandLineRunner{
 	
 	@Autowired
 	private CidadeRepository cidadeRepository;
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SistemaPedidoApplication.class, args);
@@ -68,7 +79,16 @@ public class SistemaPedidoApplication implements CommandLineRunner{
 		estadoRepository.saveAll(Arrays.asList(est1,est2));
 		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
 		
+		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "12345678910", TipoCliente.PESSOAFISICA);
+		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
 		
+		Endereco e1 = new Endereco(null, "Rua Flores", "300", "apto 325", "Universitário", "35620186", cli1, c1);
+		Endereco e2 = new Endereco(null, "Rua Joao", "120", "apto 312", "Universitário", "35620186", cli1, c2);
+		
+		cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
+		
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		enderecoRepository.saveAll(Arrays.asList(e1,e2));
 	}
 
 }
