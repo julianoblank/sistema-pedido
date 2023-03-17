@@ -79,16 +79,22 @@ public class SistemaPedidoApplication implements CommandLineRunner{
 		estadoRepository.saveAll(Arrays.asList(est1,est2));
 		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
 		
-		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "12345678910", TipoCliente.PESSOAFISICA);
+		Cliente cli1 = new Cliente(null, "Maria da Silva", "maria@gmail.com", "12345678910", TipoCliente.PESSOAFISICA);
 		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
+		
+		Cliente cli2 = new Cliente(null, "João da Silva", "silvaj@gmail.com", "0321654987", TipoCliente.PESSOAFISICA);
+		cli2.getTelefones().addAll(Arrays.asList("37125698", "99022369"));
 		
 		Endereco e1 = new Endereco(null, "Rua Flores", "300", "apto 325", "Universitário", "35620186", cli1, c1);
 		Endereco e2 = new Endereco(null, "Rua Joao", "120", "apto 312", "Universitário", "35620186", cli1, c2);
 		
-		cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
+		Endereco e3 = new Endereco(null, "Rua Dona Flores", "632", "Casa", "Centro", "96815630", cli2, c3);
 		
-		clienteRepository.saveAll(Arrays.asList(cli1));
-		enderecoRepository.saveAll(Arrays.asList(e1,e2));
+		cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
+		cli2.getEnderecos().addAll(Arrays.asList(e3));
+		
+		clienteRepository.saveAll(Arrays.asList(cli1,cli2));
+		enderecoRepository.saveAll(Arrays.asList(e1,e2,e3));
 	}
 
 }

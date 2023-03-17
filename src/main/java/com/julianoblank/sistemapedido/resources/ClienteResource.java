@@ -1,6 +1,5 @@
 package com.julianoblank.sistemapedido.resources;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +23,14 @@ public class ClienteResource {
 	public ResponseEntity<?> find(@PathVariable Integer id) {
 		
 		Cliente obj = service.buscar(id);
+		
+		return ResponseEntity.ok().body(obj);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET)
+	public ResponseEntity<?> findAll() {
+		
+		List<Cliente> obj = service.listar();
 		
 		return ResponseEntity.ok().body(obj);
 	}
