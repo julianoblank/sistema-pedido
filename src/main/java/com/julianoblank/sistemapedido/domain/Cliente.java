@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.julianoblank.sistemapedido.domain.enums.TipoCliente;
 
 @Entity
@@ -31,6 +32,7 @@ public class Cliente implements Serializable{
 	private Integer tipo; // Essa ENUM fica internamente como um Integer, mas para o mundo externo continua TipoCliente, mudar no contrutor
 	// e no get e set
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
 	
