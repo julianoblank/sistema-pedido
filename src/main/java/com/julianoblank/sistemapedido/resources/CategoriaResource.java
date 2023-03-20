@@ -1,14 +1,17 @@
 package com.julianoblank.sistemapedido.resources;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.julianoblank.sistemapedido.domain.Categoria;
 import com.julianoblank.sistemapedido.services.CategoriaService;
@@ -26,6 +29,13 @@ public class CategoriaResource {
 		Categoria obj = service.buscar(id);
 		
 		return ResponseEntity.ok().body(obj);
+	}
+	
+	@RequestMapping(method=RequestMethod.POST)
+	public ResponseEntity<Void> inserir( @RequestBody Categoria obj){
+		obj = service.inserir(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri(); // para retornar o id na URI apos a inserção
+		return ResponseEntity.created(uri).build();
 	}
 
 }
