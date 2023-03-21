@@ -16,13 +16,13 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepository repo;
 	
-	public Cliente buscar(Integer id) {
+	public Cliente find(Integer id) {
 		Optional<Cliente> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException
 				("Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
 	}
 	
-	public List<Cliente> listar() throws ObjectNotFoundException{
+	public List<Cliente> findAll() throws ObjectNotFoundException{
 		try{
 			List<Cliente> obj = repo.findAll();
 			
