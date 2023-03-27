@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -33,7 +34,7 @@ public class Cliente implements Serializable{
 	// e no get e set
 	
 	
-	@OneToMany(mappedBy = "cliente")
+	@OneToMany(mappedBy = "cliente", cascade=CascadeType.ALL) // Para quando eu apagar um cliente, apagar seus endereços em cascata
 	private List<Endereco> enderecos = new ArrayList<>();
 	
 	@ElementCollection // Para relacionamento fraco
