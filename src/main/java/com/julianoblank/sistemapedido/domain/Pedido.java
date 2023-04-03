@@ -44,7 +44,7 @@ public class Pedido implements Serializable {
 	private Endereco enderecoDeEntrega;
 	
 	@OneToMany(mappedBy = "id.pedido")
-	private Set<ItemPedido> itens = new HashSet<>();
+	private Set<ItemPedido> itens = new HashSet<>(); // lista com os itens do pedido
 	
 	
 	public Pedido () {
@@ -57,6 +57,14 @@ public class Pedido implements Serializable {
 		this.instante = instante;
 		this.cliente = cliente;
 		this.enderecoDeEntrega = enderecoDeEntrega;
+	}
+	
+	public double getValorTotal() {
+		double soma = 0.0;
+		for(ItemPedido ip: itens) {
+			soma = soma + ip.getSubTotal();
+		}
+		return soma;
 	}
 
 	public Integer getId() {
